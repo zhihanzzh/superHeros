@@ -1,19 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import SearchForm from "./SearchForm";
+import SuperHeroList from "./SuperHeroList";
+
+import "./App.css";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      superHero: ""
+    };
+  }
+
+  onSearch = searchQuery => {
+    this.setState({
+      superHero: searchQuery
+    });
+  };
+
   render() {
-    const message = "hello world"
+    const toUpper = x => x.toUpperCase();
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">{message}</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="container">
+          <div className="row">
+            <div className="col-6">
+              <SearchForm onSearch={this.onSearch} />
+            </div>
+            <div className="col-6">
+              <SuperHeroList superHero={this.state.superHero} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
